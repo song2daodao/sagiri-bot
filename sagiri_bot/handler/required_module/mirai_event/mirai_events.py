@@ -66,9 +66,9 @@ async def member_mute_event(app: Ariadne, group: Group, event: MemberMuteEvent):
                 d, h = divmod(h, 24)
                 await app.sendMessage(
                     event.member.group, MessageChain.create([
-                        Plain(text="哦~看看是谁被关进小黑屋了？\n"),
+                        Plain(text="是谁被关进小黑屋了？\n"),
                         Plain(
-                            text=f"哦我的上帝啊~是{event.member.name}！他将在小黑屋里呆{'%d天%02d小时%02d分钟%02d秒' % (d, h, m, s)}哦~"
+                            text=f"是{event.member.name}！他将在小黑屋里呆{'%d天%02d小时%02d分钟%02d秒' % (d, h, m, s)}哦~"
                         )
                     ])
                 )
@@ -82,7 +82,7 @@ async def member_unmute_event(app: Ariadne, group: Group, event: MemberUnmuteEve
             return None
         await app.sendMessage(
             event.member.group, MessageChain.create([
-                Plain(text=f"啊嘞嘞？{event.member.name}被放出来了呢~")
+                Plain(text=f"{event.member.name}被放出来了~")
             ])
         )
     except AccountMuted:
@@ -108,7 +108,7 @@ async def member_special_title_change_event(app: Ariadne, group: Group, event: M
             return None
         await app.sendMessage(
             event.member.group, MessageChain.create([
-                Plain(text="啊嘞嘞？%s的群头衔从%s变成%s了呐~" % (event.member.name, event.origin, event.current))
+                Plain(text="%s的群头衔从%s变成%s了" % (event.member.name, event.origin, event.current))
             ])
         )
     except AccountMuted:
@@ -121,7 +121,7 @@ async def member_permission_change_event(app: Ariadne, group: Group, event: Memb
             return None
         await app.sendMessage(
             event.member.group, MessageChain.create([
-                Plain(text=f"啊嘞嘞？{event.member.name}的权限变成{event.current}了呐~")
+                Plain(text=f"{event.member.name}的权限变成{event.current}了")
             ])
         )
     except AccountMuted:
@@ -132,7 +132,7 @@ async def bot_leave_event_kick(app: Ariadne, event: BotLeaveEventKick):
     logger.warning("bot has been kicked!")
     await app.sendFriendMessage(
         config.host_qq, MessageChain.create([
-            Plain(text=f"呜呜呜主人我被踢出{event.group.name}群了")
+            Plain(text=f"呜呜呜我被踢出{event.group.name}群了")
         ])
     )
 
@@ -143,7 +143,7 @@ async def group_name_change_event(app: Ariadne, group: Group, event: GroupNameCh
             return None
         await app.sendMessage(
             event.group, MessageChain.create([
-                Plain(text=f"群名改变啦！告别过去，迎接未来哟~\n本群名称由{event.origin}变为{event.current}辣！")
+                Plain(text=f"群名改变啦！告别过去，迎接未来~\n本群名称由{event.origin}变为{event.current}辣！")
             ])
         )
     except AccountMuted:
@@ -160,7 +160,7 @@ async def group_entrance_announcement_change_event(
             return None
         await app.sendMessage(
             event.group, MessageChain.create([
-                Plain(text=f"入群公告改变啦！注意查看呐~\n原公告：{event.origin}\n新公告：{event.current}")
+                Plain(text=f"入群公告改变啦！注意查看\n原公告：{event.origin}\n新公告：{event.current}")
             ])
         )
     except AccountMuted:
@@ -173,7 +173,7 @@ async def group_allow_anonymous_chat_event(app: Ariadne, group: Group, event: Gr
             return None
         await app.sendMessage(
             event.group, MessageChain.create([
-                Plain(text=f"匿名功能现在{'开启辣！畅所欲言吧！' if event.current else '关闭辣！光明正大做人吧！'}")
+                Plain(text=f"匿名功能现在{'开启！畅所欲言吧！' if event.current else '关闭！光明正大做人吧！'}")
             ])
         )
     except AccountMuted:
@@ -186,7 +186,7 @@ async def group_allow_confess_talk_event(app: Ariadne, group: Group, event: Grou
             return None
         await app.sendMessage(
             event.group, MessageChain.create([
-                Plain(text=f"坦白说功能现在{'开启辣！快来让大家更加了解你吧！' if event.current else '关闭辣！有时候也要给自己留点小秘密哟~'}")
+                Plain(text=f"坦白说功能现在{'开启！快来让大家更加了解你吧！' if event.current else '关闭！有时候也要给自己留点小秘密哟~'}")
             ])
         )
     except AccountMuted:
@@ -199,7 +199,7 @@ async def group_allow_member_invite_event(app: Ariadne, group: Group, event: Gro
             return None
         await app.sendMessage(
             event.group, MessageChain.create([
-                Plain(text=f"现在{'允许邀请成员加入辣！快把朋友拉进来玩叭！' if event.current else '不允许邀请成员加入辣！要注意哦~'}")
+                Plain(text=f"现在{'允许邀请成员加入！快把朋友拉进来玩！' if event.current else '不允许邀请成员加入！要注意哦'}")
             ])
         )
     except AccountMuted:
@@ -217,7 +217,7 @@ async def member_card_change_event(app: Ariadne, group: Group, event: MemberCard
                 await app.sendMessage(
                     group, MessageChain.create([
                         Plain(
-                            f"啊嘞嘞？{event.origin}的群名片被{event.operator.name}"
+                            f"{event.origin}的群名片被{event.operator.name}"
                             f"改为{event.current}了呢！"
                         )
                     ])
@@ -228,7 +228,7 @@ async def member_card_change_event(app: Ariadne, group: Group, event: MemberCard
             else:
                 await app.sendMessage(
                     group, MessageChain.create([
-                        Plain(text=f"啊嘞嘞？{event.origin}的群名片改为{event.current}了呢！")
+                        Plain(text=f"{event.origin}的群名片改为{event.current}了呢！")
                     ])
                 )
     except AccountMuted:
@@ -253,7 +253,7 @@ async def member_join_request_event(app: Ariadne, event: MemberJoinRequestEvent)
             return None
         await app.sendGroupMessage(
             event.groupId, MessageChain.create([
-                Plain(text=f"有个新的加群加群请求哟~管理员们快去看看叭！\n"),
+                Plain(text=f"有个新的加群加群请求哟！\n"),
                 Plain(text=f"ID：{event.supplicant}\n"),
                 Plain(text=f"昵称：{event.nickname}\n"),
                 Plain(text=f"描述：{event.message}\n")
@@ -310,7 +310,7 @@ async def bot_join_group_event(app: Ariadne, group: Group):
         GlobalFrequencyLimitDict().add_group(group.id)
         await app.sendMessage(
             group, MessageChain.create([
-                Plain(text="欸嘿嘿~我来啦！宇宙无敌小可爱纱雾酱华丽登场！")
+                Plain(text="群机器人加入！")
             ])
         )
     except AccountMuted:
@@ -382,7 +382,7 @@ async def nudge_event(app: Ariadne, event: NudgeEvent):
                                 await app.sendNudge(member)
                                 await app.sendMessage(
                                     member.group, MessageChain.create([
-                                        Plain(text=f"呜呜呜你欺负我，不理你了！")
+                                        Plain(text=f"呃呃！")
                                     ])
                                 )
                             except:
